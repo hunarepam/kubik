@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubik
+  template:
+    metadata:
+      labels:
+        app: kubik
+    spec:
+       containers:
+         - name: kubik
+           image: hunar/kubik
+           imagePullPolicy: Never
+           ports:
+             - containerPort: 8080
+               name: "http"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubik
+spec:
+  selector:
+    app: kubik
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer

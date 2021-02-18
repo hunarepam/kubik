@@ -1,0 +1,22 @@
+{{- if eq .Values.env "local" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - image: postgres
+          name: postgres
+          {{- include "kubik.env" . | indent 10 }}
+          ports:
+            - containerPort: 5432
+              name: postgres
+{{- end }}

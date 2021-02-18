@@ -1,0 +1,6 @@
+db:
+  default:
+    user: postgres
+    password: password
+    db_name: mydb
+env: local

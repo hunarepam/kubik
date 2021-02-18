@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubik
+  template:
+    metadata:
+      labels:
+        app: kubik
+    spec:
+      containers:
+        - name: kubik
+          image: hunar/kubik
+          {{- include "kubik.env" . | indent 10 }}
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+              name: "http"
